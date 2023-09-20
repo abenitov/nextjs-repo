@@ -7,11 +7,7 @@ export const runtime = 'edge';
 console.log("propertiesInit")
 async function getData() {
     const response = await fetch('https://api.github.com/repos/vercel/next.js');
-    const data = await response.json();
-
-    return {
-        data
-    };
+    return await response.json();
 }
 
 const Home = async () => {
