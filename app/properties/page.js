@@ -4,6 +4,7 @@ import ProductComponentSSR from '../components/ProductComponentSSR';
 
 export const runtime = 'edge';
 
+console.log("propertiesInit")
 async function getData() {
     const response = await fetch('https://api.github.com/repos/vercel/next.js');
     const data = await response.json();
