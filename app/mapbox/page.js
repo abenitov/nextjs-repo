@@ -168,7 +168,7 @@ export default function Mapbox() {
                 <Grid2 item xs={12} key={"linkPorp"}>
 
                 </Grid2>
-                <Grid2 item xs={12} key={"selectMap"}>
+                <Grid2 item xs={12} key={"selectMap"} sx={{marginTop:"15px"}}>
 
                     <FormControl>
                         <InputLabel id="select-label">Tipo de mapa</InputLabel>
