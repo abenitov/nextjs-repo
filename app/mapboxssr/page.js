@@ -1,4 +1,4 @@
-import mapboxgl from '!mapbox-gl';
+/*import mapboxgl from '!mapbox-gl';
 import {Container} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2"; // eslint-disable-line import/no-webpack-loader-syntax
 import barrios from "../../public/Barrios de Barcelona.json";
@@ -90,3 +90,5 @@ export default function Mapbox() {
     )
 
 }
+
+ */
