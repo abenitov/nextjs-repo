@@ -1,7 +1,8 @@
 "use client"
 import mapboxgl from '!mapbox-gl';
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import {useEffect, useRef, useState} from "react";
-import {Container} from "@mui/material";
+import {Container, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2"; // eslint-disable-line import/no-webpack-loader-syntax
 import barrios from "../../public/Barrios de Barcelona.json";
 
@@ -9,14 +10,16 @@ export default function Mapbox() {
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWJlbnZhbCIsImEiOiJjbG11ZjB4eW4wYm4yMnFwZTZ0amdnMDh4In0.wVexmtWxCEXkHq8jwBq7Sw';
     const mapContainer = useRef(null);
+    const mapContainer2 = useRef(null);
     const map = useRef(null);
+    const map2 = useRef(null);
     const [lat, setLng] = useState(41.390205);
     const [lng, setLat] = useState(2.154007);
-    const [zoom, setZoom] = useState(11);
+    const [zoom, setZoom] = useState(12);
     const [selectedZoneCoordinates, setSelectedZoneCoordinates] = useState(null);
+    const [selectedMapToDisplay, setSelectedMapToDisplay] = useState("1"); // 1 or 2
 
     console.log("mapboxInit")
-    console.log(barrios)
     useEffect(() => {
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
@@ -25,6 +28,28 @@ export default function Mapbox() {
             center: [lng, lat],
             zoom: zoom
         });
+        map2.current = new mapboxgl.Map({
+            container: mapContainer2.current,
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: [lng, lat],
+            zoom: zoom
+        });
+        const draw = new MapboxDraw({
+            displayControlsDefault: false,
+// Select which mapbox-gl-draw control buttons to add to the map.
+            controls: {
+                polygon: true,
+                trash: true
+            },
+// Set mapbox-gl-draw to draw by default.
+// The user does not have to click the polygon control button first.
+            defaultMode: 'draw_polygon'
+        });
+        map2.current.addControl(draw);
+
+        map2.current.on('draw.create', (e) => { });
+        map2.current.on('draw.delete', (e) => { });
+        map2.current.on('draw.update', (e) => { });
 
         map.current.on('load', () => {
             //Iterate over barrios and add them to the map
@@ -76,19 +101,39 @@ export default function Mapbox() {
         <Container>
             <Grid2 container>
                 <Grid2 item xs={12} key={"linkPorp"}>
-                    <h1>Mapbox</h1>
+
+                </Grid2>
+                <Grid2 item xs={12} key={"selectMap"}>
+
+                    <FormControl>
+                        <InputLabel id="select-label">Tipo de mapa</InputLabel>
+                        <Select
+                            labelId="select-label"
+                            id="select"
+                            value={selectedMapToDisplay}
+                            onChange={(e) => setSelectedMapToDisplay(e.target.value)}
+                        >
+                            <MenuItem value={'1'}>Mapa 1</MenuItem>
+                            <MenuItem value={'2'}>Mapa 2</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Grid2>
                 { selectedZoneCoordinates !== null ?
                 <Grid2 item xs={12} key={"coor"}>
                     <h1>Coordinates</h1>
                     <p>{JSON.stringify(selectedZoneCoordinates)}</p>
                 </Grid2> : null}
-                <Grid2 xs={12} md={12} item key={"linkfunnel"}>
+                <Grid2 xs={12} md={12} item key={"linkfunnel"} display={selectedMapToDisplay === "1" ? "block": "none"}>
                     <div>
                         <div ref={mapContainer} className="map-container"/>
                     </div>
                 </Grid2>
-                <Grid2 xs={12} md={12} item key={"linkfunnel2"}>
+                <Grid2 xs={12} md={12} item key={"linkfunnel2"} display={selectedMapToDisplay === "2" ? "block": "none"}>
+                    <div>
+                        <div ref={mapContainer2} className="map-container"/>
+                    </div>
+                </Grid2>
+                <Grid2 xs={12} md={12} item key={"linkfunnel3"}>
                 </Grid2>
             </Grid2>
 
