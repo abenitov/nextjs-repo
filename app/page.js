@@ -7,12 +7,11 @@ export default function Home() {
   return (
    <Container>
      <Grid2 container>
-         <Grid2><span>Grid item</span></Grid2>
          <Grid2 item key={"linkPorp"}>
-             <Link href={"/properties"}>ir a propiedades</Link>
+             <Link href={"/mapbox"}>Mapbox</Link>
          </Grid2>
          <Grid2 item key={"linkfunnel"}>
-             <Link href={"/funnel"}>ir a funnel</Link>
+             <Link href={"/gmaps"}>gmaps</Link>
          </Grid2>
      </Grid2>
    </Container>
