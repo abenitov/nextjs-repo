@@ -7,6 +7,7 @@ import {Container, FormControl, InputLabel, MenuItem, Select} from "@mui/materia
 import Grid2 from "@mui/material/Unstable_Grid2"; // eslint-disable-line import/no-webpack-loader-syntax
 import barrios from "../../public/Barrios de Barcelona.json";
 import axios from "axios";
+import PropertyList from "@/app/components/PropertyList";
 
 export default function Mapbox() {
 
@@ -20,6 +21,7 @@ export default function Mapbox() {
     const [zoom, setZoom] = useState(12);
     const [selectedZoneCoordinates, setSelectedZoneCoordinates] = useState(null);
     const [selectedMapToDisplay, setSelectedMapToDisplay] = useState("1"); // 1 or 2
+    const [allProperties, setAllProperties] = useState([]);
 
 
 
@@ -48,6 +50,7 @@ export default function Mapbox() {
                 console.log(response.data.hits);
                 if(response.data.hits != undefined && response.data.hits.length > 0){
 
+                    setAllProperties(response.data.hits)
                     //Iterate over hits and get location.lattitude and location.longitude to add them to the map
                     response.data.hits.forEach(function (hit,index) {
                         console.log(hit.location.longitude + " " + hit.location.latitude)
@@ -198,6 +201,10 @@ export default function Mapbox() {
                         <h1>Coordenadas para filtrar resultados:</h1>
                         <p style={{fontSize:"0.5rem"}}>{JSON.stringify(selectedZoneCoordinates)}</p>
                     </Grid2> : null}
+                <Grid2 item xs={12} key={"linkfunnel4"}>
+                    <h1>Listado de Propiedades</h1>
+                    <PropertyList properties={allProperties} />
+                </Grid2>
             </Grid2>
 
         </Container>
