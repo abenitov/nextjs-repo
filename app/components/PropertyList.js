@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import  Gallery from 'react-image-gallery';
 
 function PropertyList({ properties }) {
