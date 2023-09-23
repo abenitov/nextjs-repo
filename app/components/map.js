@@ -30,7 +30,7 @@ export default function Map({allProperties,getPropertiesByCoordenates}) {
             {isMobile ?
                 <Grid2 item xs={12}>
                     <Button variant="contained" sx={{color:"black"}} onClick={toggleMapVisibility}>
-                        Ver Mapa
+                        {showMap ? "Ocultar mapa" : "Mostrar mapa"}
                     </Button>
                 </Grid2> : null
             }
