@@ -1,9 +1,10 @@
 "use client"
-import {Container, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Container, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import React, {useEffect} from "react";
 import Grid2 from "@mui/material/Unstable_Grid2"; // eslint-disable-line import/no-webpack-loader-syntax
 import axios from "axios";
 import PropertyList from "@/app/components/PropertyList";
+import Map from "@/app/components/map";
 import Mapbox from "@/app/components/mapbox";
 
 export default function PropertyListPage({params, searchParams}) {
@@ -103,13 +104,13 @@ export default function PropertyListPage({params, searchParams}) {
 
     return (
         <Container sx={{margin: "auto", padding:"0", maxWidth:"1800px"}} >
-            <Grid2 container fullWidth order={{ xs: 2, sm: 1 }} spacing={2}>
-                <Grid2 item xs={12} md={6} key={"linkPorp"} style={{ order: 2 }}>
+            <Grid2 container order={{ xs: 2, sm: 1 }} spacing={2}>
+                <Grid2 item xs={12} md={6} key={"linkPorp"} order={{xs: 1, md:2}}>
                     {allProperties.length > 0 ?
-                    <Mapbox allProperties={allProperties} getPropertiesByCoordenates={getPropertiesByCoordenates}/>
+                    <Map allProperties={allProperties} getPropertiesByCoordenates={getPropertiesByCoordenates}/>
                         : null }
                 </Grid2>
-                <Grid2 item xs={12} md={6} key={"linkfunnel4"} style={{ order: 1 }}>
+                <Grid2 item xs={12} md={6} key={"linkfunnel4"} order={{xs: 2, md:1}}>
                     <h1>Listado de Propiedades</h1>
                     <PropertyList properties={filteredProperties !== undefined ? filteredProperties : allProperties}/>
                 </Grid2>
