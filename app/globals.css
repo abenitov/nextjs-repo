@@ -27,22 +27,6 @@
     }
 }
 
-@media (min-width: 1024px) {
-    .map-container {
-        height: 700px;
-        width: 100%;
-        margin: 0 auto;
-        position: relative;
-    }
-}
 
-@media (min-width: 1280px) {
-    .map-container {
-        height: 800px;
-        width: 100%;
-        margin: 0 auto;
-        position: relative;
-    }
-}
 
 

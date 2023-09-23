@@ -9,7 +9,7 @@ import barrios from "../../public/Barrios de Barcelona.json";
 import axios from "axios";
 import PropertyList from "@/app/components/PropertyList";
 
-export default function Mapbox({allProperties}) {
+export default function Mapbox({allProperties,getPropertiesByCoordenates}) {
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWJlbnZhbCIsImEiOiJjbG11ZjB4eW4wYm4yMnFwZTZ0amdnMDh4In0.wVexmtWxCEXkHq8jwBq7Sw';
     const mapContainer = useRef(null);
@@ -54,12 +54,26 @@ export default function Mapbox({allProperties}) {
         });
         map2.current.addControl(draw);
 
-        map2.current.on('draw.create',  (e) => {   var x=draw.getAll();
-            setSelectedZoneCoordinates(x['features'][0]['geometry']['coordinates'][0]) })
-        map2.current.on('draw.delete', (e) => {   var x=draw.getAll();
-            setSelectedZoneCoordinates(x['features'][0]['geometry']['coordinates'][0]) })
-        map2.current.on('draw.update', (e) => {   var x=draw.getAll();
-            setSelectedZoneCoordinates(x['features'][0]['geometry']['coordinates'][0]) })
+        map2.current.on('draw.create',  (e) => {
+            var x=draw.getAll();
+            var coordinates = x['features'][0]['geometry']['coordinates'][0]
+            console.log(coordinates)
+            setSelectedZoneCoordinates(coordinates)
+            getPropertiesByCoordenates(coordinates)})
+
+        map2.current.on('draw.delete', (e) => {
+            var x=draw.getAll();
+            var coordinates = x['features'][0]['geometry']['coordinates'][0]
+            console.log(coordinates)
+            setSelectedZoneCoordinates(coordinates)
+            getPropertiesByCoordenates(coordinates)})
+
+        map2.current.on('draw.update', (e) => {
+            var x=draw.getAll();
+            var coordinates = x['features'][0]['geometry']['coordinates'][0]
+            console.log(coordinates)
+            setSelectedZoneCoordinates(coordinates)
+            getPropertiesByCoordenates(coordinates)})
 
         map.current.on('load', () => {
             //Iterate over barrios and add them to the map
@@ -87,7 +101,8 @@ export default function Mapbox({allProperties}) {
                 });
                 map.current.on('click', "zone" + index, (e) => {
                     console.log("click")
-                    setSelectedZoneCoordinates(feature.coordinates)
+                    setSelectedZoneCoordinates(feature.coordinates[0])
+                    getPropertiesByCoordenates(feature.coordinates[0])
                 });
 
                 map.current.on('mouseenter', "zone" + index, () => {
@@ -160,11 +175,6 @@ export default function Mapbox({allProperties}) {
                 </Grid2>
                 <Grid2 xs={12} md={12} item key={"linkfunnel3"}>
                 </Grid2>
-                { selectedZoneCoordinates !== null ?
-                    <Grid2 item xs={12} key={"coor"}>
-                        <h1>Coordenadas para filtrar resultados:</h1>
-                        <p style={{fontSize:"0.5rem"}}>{JSON.stringify(selectedZoneCoordinates)}</p>
-                    </Grid2> : null}
             </Grid2>
     )
 
