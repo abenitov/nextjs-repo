@@ -54,7 +54,7 @@ export default function PropertyListPage({params, searchParams}) {
 
 
 
-    const getPropertiesByCoordenates = async (coordinates) => {
+    const getPropertiesByCoordenates = (coordinates) => {
         const ALGOLIA_APP_ID = 'VUOWCCZNT1';
         const ALGOLIA_API_KEY = '40f1304cc89701e5055bde13fc0d4aa8';
         const INDEX_NAME = 'dev-es-properties'; // Reemplaza con el nombre de tu índice en Algolia
@@ -71,30 +71,23 @@ export default function PropertyListPage({params, searchParams}) {
                 'Content-Type': "application/json"
             },
         });
-        return new Promise((resolve, reject) => {
-
-            const formatedCoordinates = coordinates.flatMap((c) => c.reverse())
-            console.log(formatedCoordinates)
             axiosInstance.post('/query', {
-                insidePolygon:[formatedCoordinates]
+                insidePolygon:[coordinates.flatMap((c) => [...c].reverse())]
             }).then(
                 (response) => {
                     console.log(response.data)
                     if (response.data.hits != undefined && response.data.hits.length > 0) {
-                        resolve(response.data.hits)
                         setFilteredProperties(response.data.hits)
                     } else {
-                        resolve([])
                         setFilteredProperties([])
                     }
                 }
             ).catch(
                 (error) => {
                     console.log(error);
-                    reject(error)
                 }
             );
-        })
+
     }
 
     useEffect(() => {
@@ -109,14 +102,14 @@ export default function PropertyListPage({params, searchParams}) {
 
 
     return (
-        <Container>
-            <Grid2 container>
-                <Grid2 item xs={12} key={"linkPorp"}>
+        <Container sx={{margin: "auto", padding:"0", maxWidth:"1800px"}} >
+            <Grid2 container fullWidth order={{ xs: 2, sm: 1 }} spacing={2}>
+                <Grid2 item xs={12} md={6} key={"linkPorp"} style={{ order: 2 }}>
                     {allProperties.length > 0 ?
                     <Mapbox allProperties={allProperties} getPropertiesByCoordenates={getPropertiesByCoordenates}/>
                         : null }
                 </Grid2>
-                <Grid2 item xs={12} key={"linkfunnel4"}>
+                <Grid2 item xs={12} md={6} key={"linkfunnel4"} style={{ order: 1 }}>
                     <h1>Listado de Propiedades</h1>
                     <PropertyList properties={filteredProperties !== undefined ? filteredProperties : allProperties}/>
                 </Grid2>

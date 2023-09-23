@@ -19,7 +19,6 @@ export default function Mapbox({allProperties,getPropertiesByCoordenates}) {
     const [lat, setLng] = useState(41.390205);
     const [lng, setLat] = useState(2.154007);
     const [zoom, setZoom] = useState(12);
-    const [selectedZoneCoordinates, setSelectedZoneCoordinates] = useState(null);
     const [selectedMapToDisplay, setSelectedMapToDisplay] = useState("1"); // 1 or 2
 
 
@@ -58,21 +57,18 @@ export default function Mapbox({allProperties,getPropertiesByCoordenates}) {
             var x=draw.getAll();
             var coordinates = x['features'][0]['geometry']['coordinates'][0]
             console.log(coordinates)
-            setSelectedZoneCoordinates(coordinates)
             getPropertiesByCoordenates(coordinates)})
 
         map2.current.on('draw.delete', (e) => {
             var x=draw.getAll();
             var coordinates = x['features'][0]['geometry']['coordinates'][0]
             console.log(coordinates)
-            setSelectedZoneCoordinates(coordinates)
             getPropertiesByCoordenates(coordinates)})
 
         map2.current.on('draw.update', (e) => {
             var x=draw.getAll();
             var coordinates = x['features'][0]['geometry']['coordinates'][0]
             console.log(coordinates)
-            setSelectedZoneCoordinates(coordinates)
             getPropertiesByCoordenates(coordinates)})
 
         map.current.on('load', () => {
@@ -101,8 +97,10 @@ export default function Mapbox({allProperties,getPropertiesByCoordenates}) {
                 });
                 map.current.on('click', "zone" + index, (e) => {
                     console.log("click")
-                    setSelectedZoneCoordinates(feature.coordinates[0])
-                    getPropertiesByCoordenates(feature.coordinates[0])
+                    //Copy map.current.getSource("zone" + index)._data.geometry.coordinates[0] to coordinates
+                    var coordinates = [...map.current.getSource("zone" + index)._data.geometry.coordinates[0]]
+                    console.log(coordinates)
+                    getPropertiesByCoordenates(coordinates)
                 });
 
                 map.current.on('mouseenter', "zone" + index, () => {
@@ -129,7 +127,7 @@ export default function Mapbox({allProperties,getPropertiesByCoordenates}) {
                     console.log(hit.location.longitude + " " + hit.location.latitude)
                     new mapboxgl.Marker()
                         .setLngLat([hit.location.longitude, hit.location.latitude]).setPopup(new mapboxgl.Popup()
-                        .setHTML(hit.description))
+                        .setHTML(<a> ir a ver</a>))
                         .addTo(map2.current);
                     new mapboxgl.Marker()
                         .setLngLat([hit.location.longitude, hit.location.latitude]).setPopup(new mapboxgl.Popup()

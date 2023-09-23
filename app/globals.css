@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "~react-image-gallery/styles/css/image-gallery.css";
 .map-container {
     height: 500px;
     width: 100%;
@@ -25,6 +25,28 @@
         margin: 0 auto;
         position: relative;
     }
+}
+
+.image-gallery-svg {
+    height: 50px !important;
+
+}
+
+.image-gallery-left-nav {
+    padding: 5px 0px !important;
+    width: 30px !important;
+}
+
+.image-gallery-right-nav {
+    padding: 5px 0px !important;
+}
+
+.image-gallery-fullscreen-button {
+    padding: 5px 10px !important;
+}
+
+.image-gallery-play-button {
+    padding: 5px 10px !important;
 }
 
 
