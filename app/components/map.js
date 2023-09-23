@@ -27,34 +27,31 @@ export default function Map({allProperties,getPropertiesByCoordenates}) {
     console.log(showMap)
     return (
         <Grid2 container>
-            {isMobile ?
-                <Grid2 item xs={12}>
-                    <Button variant="contained" sx={{color:"black"}} onClick={toggleMapVisibility}>
+
+                <Grid2 item xs={12} sx={{margin:"15px 0px"}}>
+                    {isMobile ?  <Button variant="contained" sx={{color:"black",marginRight:"10px"}} onClick={toggleMapVisibility}>
                         {showMap ? "Ocultar mapa" : "Mostrar mapa"}
-                    </Button>
-                </Grid2> : null
-            }
+                    </Button>: null
+                    }
+                    {showMap ?
+                        <FormControl>
+                            <InputLabel id="select-label">Tipo de mapa</InputLabel>
+                            <Select
+                                labelId="select-label"
+                                id="select"
+                                value={selectedMapToDisplay}
+                                onChange={(e) =>{
+                                    console.log(e.target.value)
+                                    setSelectedMapToDisplay(e.target.value)
+                                }}
+                            >
+                                <MenuItem value={'1'}>Mapa 1</MenuItem>
+                                <MenuItem value={'2'}>Mapa 2</MenuItem>
+                            </Select>
 
-            {showMap ?
-                <Grid2 item xs={12} key={"selectMap"} sx={{marginTop:"15px"}}>
+                        </FormControl> : null}
+                </Grid2>
 
-                    <FormControl>
-                        <InputLabel id="select-label">Tipo de mapa</InputLabel>
-                        <Select
-                            labelId="select-label"
-                            id="select"
-                            value={selectedMapToDisplay}
-                            onChange={(e) =>{
-                                console.log(e.target.value)
-                                setSelectedMapToDisplay(e.target.value)
-                        }}
-                        >
-                            <MenuItem value={'1'}>Mapa 1</MenuItem>
-                            <MenuItem value={'2'}>Mapa 2</MenuItem>
-                        </Select>
-
-                    </FormControl>
-                </Grid2> : null }
 
 
                 <Grid2 xs={12} md={12} item key={"linkfunnel"} sx={showMap && selectedMapToDisplay === "1" ? {
