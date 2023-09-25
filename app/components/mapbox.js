@@ -19,20 +19,10 @@ export default function Mapbox({version, allProperties, getPropertiesByCoordenat
     const [zoom, setZoom] = useState(12);
 
 
-    console.log("mapboxInit")
     useEffect(() => {
 
-
         if (map.current) return; // initialize map only once
-
             initMap();
-
-
-
-
-
-
-
     },[]);
 
     const initMap = () => {
@@ -155,7 +145,7 @@ export default function Mapbox({version, allProperties, getPropertiesByCoordenat
     return (
                 <Grid2 container xs={12}>
                     <Grid2 item key={"button1"}>
-                        <Button onClick={displayZones}>Buscar por zone</Button>
+                        <Button onClick={displayZones}>Buscar por zona</Button>
                         <Button onClick={drawZone}>Dibujar zona</Button>
                         <Button onClick={resetMap}>Limpiar mapa</Button>
                     </Grid2>
