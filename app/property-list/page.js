@@ -91,7 +91,7 @@ export default function PropertyListPage({params, searchParams}) {
     };
 
     return (
-        <Container sx={{margin: "auto", padding:"0", maxWidth:"1800px"}} >
+        <Container sx={{margin: "auto", padding:"5px", maxWidth:"1800px"}} >
             <Grid2 container order={{ xs: 2, sm: 1 }} spacing={2}>
                 <Grid2 item xs={12} key={"searchBar"}>
                     <div>
