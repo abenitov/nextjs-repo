@@ -12,7 +12,7 @@ export default function Map({allProperties,getPropertiesByCoordenates}) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWJlbnZhbCIsImEiOiJjbG11ZjB4eW4wYm4yMnFwZTZ0amdnMDh4In0.wVexmtWxCEXkHq8jwBq7Sw';
 
     const isMobile = useMediaQuery('(max-width:600px)');
-    const [showMap, setShowMap] = useState(!window.matchMedia('(max-width:600px)').matches);
+    const [showMap, setShowMap] = useState(!useMediaQuery('(max-width:600px)'));
 
     console.log("mapboxInit")
 
