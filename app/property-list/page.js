@@ -73,7 +73,7 @@ export default function PropertyListPage({params, searchParams}) {
     useEffect(() => {
         console.log("propertyList")
 
-        getAllProperties("")
+        getAllProperties(searchParams !== undefined && searchParams["search"] !== undefined ? searchParams["search"] : "")
     },[])
 
     const handleSearch = () => {

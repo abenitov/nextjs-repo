@@ -19,11 +19,15 @@ export default function Mapbox({version, allProperties, getPropertiesByCoordenat
     const [zoom, setZoom] = useState(12);
 
 
+
     useEffect(() => {
 
-        if (map.current) return; // initialize map only once
+        if (map.current) {
+            resetMap()
+            return;
+        }; // initialize map only once
             initMap();
-    },[]);
+    },[allProperties]);
 
     const initMap = () => {
         map.current = new mapboxgl.Map({

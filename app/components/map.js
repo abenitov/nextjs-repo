@@ -14,8 +14,6 @@ export default function Map({allProperties,getPropertiesByCoordenates}) {
     const isMobile = useMediaQuery('(max-width:600px)');
     const [showMap, setShowMap] = useState(!useMediaQuery('(max-width:600px)'));
 
-    console.log("mapboxInit")
-
 
     const toggleMapVisibility = () => {
         if (window.matchMedia('(max-width:600px)').matches) {
