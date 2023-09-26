@@ -97,7 +97,7 @@ export default function PropertyListPage({params, searchParams}) {
                     <div>
                         <TextField
                             label="Buscar por población, código postal..."
-                            variant="outlined"
+                            variant="outlined" sx={{minWidth:{xs:"80%",md:"35%"}}}
                             value={searchText}
                             onChange={handleInputChange}
                             onKeyPress={handleKeyPress}
