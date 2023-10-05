@@ -23,7 +23,7 @@ export default function Map({allProperties,getPropertiesByCoordenates}) {
 
     console.log(showMap)
     return (
-        <Grid2 container>
+        <Grid2 container fullWidth>
 
                 <Grid2 item xs={12} sx={{margin:"15px 0px"}}>
                     {isMobile ?  <Button variant="contained" sx={{color:"black",marginRight:"10px"}} onClick={toggleMapVisibility}>
