@@ -93,7 +93,7 @@ function PropertyList({properties}) {
                                             </Grid>
                                             <Grid item  display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
                                                 <Typography variant="body2" color="text.secondary"  style={{ fontWeight: 'bold' }}>
-                                                    1 baño
+                                                    {property.bathrooms > 1 ? property.bathrooms + " baños" : property.bathrooms + " baño"}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -107,7 +107,7 @@ function PropertyList({properties}) {
                                             </Grid>
                                             <Grid item display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
                                                 <Typography variant="body2" color="text.secondary"  style={{ fontWeight: 'bold' }}>
-                                                    3 personas
+                                                    {property.peopleCapacity > 1 ? property.peopleCapacity + " personas" : property.peopleCapacity + " persona"}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
