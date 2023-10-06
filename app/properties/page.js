@@ -8,7 +8,6 @@ import Map from "@/app/components/map";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const runtime = 'edge';
 
 console.log("propertiesInit")
 async function getData(searchParams) {
