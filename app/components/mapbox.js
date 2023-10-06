@@ -7,6 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import barrios from "../../public/Barrios de Barcelona.json";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {Button} from "@mui/material";
+import icon from "../../public/icons/icons8-cama-48.png";
 
 
 export default function Mapbox({version, allProperties, getPropertiesByCoordenates}) {
@@ -42,10 +43,18 @@ export default function Mapbox({version, allProperties, getPropertiesByCoordenat
 
             if (allProperties != undefined && allProperties.length > 0) {
 
+
+
+
                 //Iterate over hits and get location.lattitude and location.longitude to add them to the map
                 allProperties.forEach(function (hit, index) {
-                    console.log(hit.location.longitude + " " + hit.location.latitude)
-                    new mapboxgl.Marker()
+                    const customMarker = document.createElement('div');
+                    customMarker.style.backgroundImage = 'url(https://icon2.cleanpng.com/20180328/xzq/kisspng-france-computer-icons-home-location-icon-5abbd622abd667.7003375115222594907039.jpg)';
+                    customMarker.style.backgroundSize = 'cover';
+                    customMarker.style.backgroundPosition = 'center';
+                    customMarker.style.width = '30px';
+                    customMarker.style.height = '41px';
+                    new mapboxgl.Marker(customMarker)
                         .setLngLat([hit.location.longitude, hit.location.latitude]).setPopup(new mapboxgl.Popup()
                         .setHTML(hit.description))
                         .addTo(map.current);
@@ -147,15 +156,15 @@ export default function Mapbox({version, allProperties, getPropertiesByCoordenat
     }
 
     return (
-                <Grid2 container xs={12}>
-                    <Grid2 item key={"button1"}>
+                <Grid2 container xs={12} >
+                    <Grid2 item key={"button1"} display={"none"}>
                         <Button onClick={displayZones}>Buscar por zona</Button>
                         <Button onClick={drawZone}>Dibujar zona</Button>
                         <Button onClick={resetMap}>Limpiar mapa</Button>
                     </Grid2>
-                    <Grid2 item key={"mapas"}  xs={12}>
+                    <Grid2 item key={"mapas"}  xs={12} >
                         <div>
-                            <div ref={mapContainer} className="map-container"/>
+                            <div style={{borderRadius:"26px"}} ref={mapContainer} className="map-container"/>
                         </div>
                     </Grid2>
                 </Grid2>

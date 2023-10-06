@@ -222,4 +222,339 @@ body {
 
 
 
+.HeadingLarge {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 48px;
+    color: #0A243E
+}
+.HeadingSmall {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+    color: #0A243E
+}
+@media (max-width: 900px) {
+
+    .HeadingSmall {
+        /*HeadingXsmall*/
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 28px;
+        color: #0A243E
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .HeadingLarge {
+        /*HeadingMedium*/
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 41.8px;
+        color: #0A243E
+    }
+}
+
+@media (max-width: 400px) {
+
+    .HeadingLarge {
+        /*HeadingMedium*/
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 1.7rem;
+        line-height: 41.8px;
+        color: #0A243E
+    }
+}
+
+.HeadingXLarge {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 57.6px;
+    color: #0A243E
+}
+
+@media (max-width: 600px) {
+    .HeadingXLarge {
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 48px;
+        color: #0A243E
+    }
+}
+
+.HeadingMedium {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 41.6px;
+    color: #0A243E
+}
+
+@media (max-width: 600px) {
+
+    .HeadingMedium {
+        /* HeadingSmall */
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 33px;
+        color: #0A243E
+    }
+}
+
+.HeadingXxlarge {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 3.5rem;
+    line-height: 67.2px;
+    color: #0A243E
+}
+
+@media (max-width: 700px) {
+    .HeadingXxlarge {
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 2.5rem;
+        line-height: 48px;
+        color: #0A243E
+    }
+}
+
+@media (max-width: 400px) {
+    .HeadingXxlarge {
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 2rem;
+        line-height: 38px;
+        color: #0A243E
+    }
+}
+
+
+.HeadingXsmall {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #0A243E
+}
+
+@media (max-width: 900px) {
+    .HeadingXsmall {
+        font-family: 'Recoleta';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        color: #0A243E
+    }
+}
+
+.HeadingXXsmall {
+    font-family: 'Recoleta';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #0A243E
+}
+
+.TextMediumNormal {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25.5px;
+    color: #485E75
+}
+
+@media (max-width: 900px) {
+
+    .TextMediumNormal {
+        /*TextRegularNormal*/
+        font-family: 'Inter';
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
+        color: #485E75
+    }
+}
+
+@media (max-width: 400px) {
+
+    .TextMediumNormal {
+        /*TextRegularNormal*/
+        font-family: 'Inter';
+        font-weight: 400;
+        font-size: 0.85rem;
+        line-height: 18px;
+        color: #485E75
+    }
+}
+
+.TextMediumMedium {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25.5px;
+    color: #485E75
+}
+
+@media (max-width: 400px) {
+
+    .TextMediumMedium {
+        /*TextRegularNormal*/
+        font-family: 'Inter';
+        font-weight: 500;
+        font-size: 0.75rem;
+        line-height: 18px;
+        color: #485E75
+    }
+}
+
+.TextMediumSemibold {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 150%;
+    color: #485E75
+}
+
+.TextLargeMedium {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 28.5px;
+    color: #485E75
+}
+
+@media (max-width: 900px) {
+    .TextLargeMedium {
+        font-family: 'Inter';
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 25.5px;
+        color: #485E75
+    }
+}
+
+.TextRegularNormal {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 0.93rem;
+    line-height: 22.5px;
+    color: #485E75
+}
+
+@media (max-width: 400px) {
+    .TextRegularNormal {
+        font-family: 'Inter';
+        font-weight: 400;
+        font-size: 0.80rem;
+        line-height: 18px;
+        color: #485E75
+    }
+}
+
+.TextRegularMedium{
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 0.93rem;
+    line-height: 22.5px;
+    color: #485E75
+}
+
+.TextSmallNormal {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 0.81rem;
+    line-height: 19.5px;
+    color: #485E75
+}
+
+.TextSmallSemibold {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 0.81rem;
+    line-height: 19.5px;
+    color: #485E75
+}
+
+@media (max-width: 600px) {
+    .TextSmallNormal {
+        /*TextTinyNormal */
+        font-family: 'Inter';
+        font-weight: 400;
+        font-size: 0.75rem;
+        color: #485E75
+    }
+}
+
+.TextSmallMedium {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 0.81rem;
+    line-height: 19.5px;
+    color: #485E75
+}
+
+.TextSmallLight {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 0.81rem;
+    line-height: 19.5px;
+    color: #485E75
+}
+
+.TextTinyNormal {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 0.71rem;
+    color: #485E75
+}
+
+.TextTinyLight {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 0.71rem;
+    color: #485E75
+}
+
+.TextTinyMedium {
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 0.81rem;
+    color: #485E75
+}
+
+.TextTinySemibold {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 0.71rem;
+    color: #485E75
+}
+
+.TextRegularLight {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 0.93rem;
+    line-height: 22.5px;
+    color: #485E75
+}
+
+.TextRegularSemibold {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 0.93rem;
+    line-height: 22.5px;
+    color: #485E75
+}
+
+
 
