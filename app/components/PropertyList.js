@@ -12,7 +12,21 @@ import ocupacion from '../../public/icons/icons8-persona-en-casa-48.png';
 import baños from '../../public/icons/icons8-bañera-48.png';
 import Grid2 from "@mui/material/Unstable_Grid2";
 
-function PropertyList({properties}) {
+function PropertyList({properties, configAreas}) {
+
+    //move neighborhoods to configAreas
+    const areas = []
+    configAreas.forEach((area) => {
+        areas.push({id: area.id, name: area.name})
+        area.neighborhoods.forEach((neighborhood) => {
+            areas.push(neighborhood)
+        })
+
+    })
+
+
+    console.log(areas)
+
     return (
         <Grid container spacing={2}>
             {properties.map((property) => (
@@ -42,8 +56,8 @@ function PropertyList({properties}) {
                                 <Grid container spacing={1}>
                                     <Grid item xs={8}>
                                         <span className={"TextRegularNormal"}> {property.location.address}</span><br/>
-                                        <span className={"TextTinyNormal"}>
-                                            Sagrada Familia
+                                        <span className={"TextSmallLight"}>
+                                            {property.location.areas.map((area) => { return areas.filter((area2) => area2.id === area)[0].name}).join(", ")}
                                         </span>
 
                                     </Grid>

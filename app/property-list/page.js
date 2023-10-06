@@ -21,7 +21,73 @@ import theme from '@/app/theme'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import NeighborhoodFilter from "@/app/components/NeighborhoodFilter";
 
+const areas =
+    [
+        {
+            "id": "ciutat-vella",
+            "name": "Ciutat Vella",
+            "neighborhoods": [
+                {"id": "el-born", "name": "El Born"},
+                {"id": "el-gotic", "name": "El Gòtic"},
+            ]
+        },
+        {
+            "id": "gracia",
+            "name": "Gracia",
+            "neighborhoods": [
+                {"id": "el-camp-den-grassot-i-gracia-nova", "name": "El Camp d'en Grassot i Gràcia Nova"},
+                {"id": "el-putxet-i-el-farro", "name": "El Putxet i el Farró"},
+                {"id": "vila-de-gracia", "name": "Vila de Gràcia"},
+            ]
+        },
+        {
+            "id": "leixample",
+            "name": "Leixample",
+            "neighborhoods": [
+                {"id": "antiga-esquerra-de-leixample", "name": "Antiga Esquerra de l'Eixample"},
+                {"id": "la-dreta-de-leixample", "name": "La Dreta de l'Eixample"},
+                {"id": "nova-esquerra-de-leixample", "name": "Nova Esquerra de l'Eixample"},
+                {"id": "sagrada-familia", "name": "Sagrada Familia"},
+            ]
+        },
+        {
+            "id": "les-corts",
+            "name": "Les Corts",
+            "neighborhoods": [
+                {"id": "pedralbes", "name": "Pedralbes"},
+                {"id": "les-corts", "name": "Les Corts"},
+            ]
+        },
+        {
+            "id": "sant-marti",
+            "name": "Sant Marti",
+            "neighborhoods": [
+                {"id": "22", "name": "22@ (Districte de la Innovació)"},
+                {"id": "el-poblenou", "name": "El Poblenou"},
+                {"id": "la-vila-olimpica-del-poblenou", "name": "La Vila Olímpica del Poblenou"},
+            ]
+        },
+        {
+            "id": "sants-montjuic",
+            "name": "Sants Montjuic",
+            "neighborhoods": [
+                {"id": "la-bordeta", "name": "La Bordeta"},
+                {"id": "poble-sec", "name": "Poble Sec"},
+            ]
+        },
+        {
+            "id": "san-gervasi",
+            "name": "San Gervasi",
+            "neighborhoods": [
+                {"id": "sarria", "name": "Sarrià"},
+                {"id": "galvany", "name": "Galvany"},
+                {"id": "les-tres-torres", "name": "Les Tres Torres"},
+
+            ]
+        }
+    ]
 
 export default function PropertyListPage({params, searchParams}) {
 
@@ -30,6 +96,7 @@ export default function PropertyListPage({params, searchParams}) {
 // Configura Axios con tu clave de API
     const axiosInstance = axios.create({
         baseURL: "https://beyond-ms-service-c5dsg6fesq-ew.a.run.app/properties",
+     //   baseURL: "http://localhost:8080/properties",
         headers: {},
     });
 
@@ -49,7 +116,7 @@ export default function PropertyListPage({params, searchParams}) {
         axiosInstance.post('/search', {
             //      params: `query=` + searchParams !== undefined && searchParams["search"] !== undefined ? searchParams["search"] : "",
             keyword: keyword,
-            numericFilters: filter.length > 0 ? filter : undefined
+            ...filter
 
         }).then(
             (response) => {
@@ -92,7 +159,9 @@ export default function PropertyListPage({params, searchParams}) {
     }
 
     const buildFilterFromObject = (obj) => {
-        let filter = []
+        let filters = {}
+        let numericFilters = []
+        let otherFilters = []
         Object.keys(obj).forEach(function (key) {
             if (key === "search") {
                 setSearchText(obj[key])
@@ -100,16 +169,24 @@ export default function PropertyListPage({params, searchParams}) {
                 if (key.startsWith("min")) {
                     //given the key convert to lowercase only the first letter
                     let ke = key.substring(3)
-                    filter.push((ke.charAt(0).toLowerCase() + ke.slice(1) + " >= " + obj[key]).trim())
+                    numericFilters.push((ke.charAt(0).toLowerCase() + ke.slice(1) + " >= " + obj[key]).trim())
                 } else if (key.startsWith("max")) {
                     let ke = key.substring(3)
-                    filter.push((ke.charAt(0).toLowerCase() + ke.slice(1) + " <= " + obj[key]).trim())
+                    numericFilters.push((ke.charAt(0).toLowerCase() + ke.slice(1) + " <= " + obj[key]).trim())
                 } else {
-                    filter.push((key.charAt(0).toLowerCase() + key.slice(1) + " = " + obj[key]).trim())
+                    if(obj[key].length > 0){
+                        otherFilters.push(key + "=" + obj[key])
+                    }
                 }
             }
         })
-        return filter
+        if (numericFilters.length > 0) {
+            filters["numericFilters"] = numericFilters
+        }
+        if (otherFilters.length > 0) {
+            filters["filters"] = otherFilters
+        }
+        return filters
     }
 
     useEffect(() => {
@@ -151,6 +228,11 @@ export default function PropertyListPage({params, searchParams}) {
                                                onKeyPress={handleKeyPress}
                                     />
                                 </div>
+                            </Grid2>
+                            <Grid2 item xs={12} md={4}>
+                                <NeighborhoodFilter areas={areas} setSelectedZones={(zones)=> {
+                                    setSearchFilters({...searchFilters, "location.areas": zones})
+                                }}/>
                             </Grid2>
                             <Grid2 item xs={12} md={4}>
                                 <span className={"TextSmallNormal"}>
@@ -222,7 +304,7 @@ export default function PropertyListPage({params, searchParams}) {
 
                     </Grid2>
                     <Grid2 item xs={12} sm={12} md={8.5} key={"linkfunnel4"} order={{xs: 2, md: 1}}  >
-                        <PropertyList
+                        <PropertyList configAreas={areas}
                             properties={filteredProperties !== undefined ? filteredProperties : allProperties}/>
                     </Grid2>
                 </Grid2>
