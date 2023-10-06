@@ -217,17 +217,15 @@ export default function PropertyListPage({params, searchParams}) {
             <Container sx={{margin: "0", padding: "5px", maxWidth: "none"}}>
                 <Grid2 container fullWidth order={{xs: 2, sm: 1}} spacing={2}>
                     <Grid2 item xs={12} key={"searchBar"}>
-                        <Grid2 container spacing={3}>
+                        <Grid2 container spacing={2} columns={12} sx={{padding:"10px"}}>
                             <Grid2 item xs={12}>
-                                <div>
                                     <TextField classes={"TextSmallNormal"}
                                                label="Buscar por población, código postal..."
                                                variant="outlined" sx={{minWidth: {xs: "80%", md: "35%"}}}
-                                               value={searchText}
+                                               value={searchText} fullWidth={true}
                                                onChange={handleInputChange}
                                                onKeyPress={handleKeyPress}
                                     />
-                                </div>
                             </Grid2>
                             <Grid2 item xs={12} md={4}>
                                 <NeighborhoodFilter areas={areas} setSelectedZones={(zones)=> {
@@ -293,7 +291,11 @@ export default function PropertyListPage({params, searchParams}) {
                             </Grid2>
                             <Grid2 item xs={12} md={12} display={"flex"} alignItems={"center"}>
                                 <IconButton onClick={handleSearch}>
+
                                     <SearchIcon/>
+                                    <span className={"TextSmallNormal"}>
+                                        Buscar
+                                    </span>
                                 </IconButton>
                             </Grid2>
                         </Grid2>
