@@ -217,7 +217,8 @@ body {
 }
 
 .MuiContainer-root {
-    max-width: 100% !important;
+    max-width: 1800px !important;
+    margin: 0px auto !important;
 }
 
 
@@ -559,6 +560,7 @@ body {
 MuiMenuItem-root{
     padding: 0px 16px !important;
 }
+
 
 
 

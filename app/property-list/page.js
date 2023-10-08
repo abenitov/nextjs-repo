@@ -1,8 +1,10 @@
 "use client"
 import {
+    Accordion, AccordionDetails,
+    AccordionSummary,
     Container,
     FormControl,
-    FormLabel,
+    FormLabel, Hidden,
     InputLabel,
     MenuItem,
     Select,
@@ -214,11 +216,11 @@ export default function PropertyListPage({params, searchParams}) {
     console.log(searchFilters)
     return (
         <ThemeProvider theme={theme}>
-            <Container sx={{margin: "0", padding: "5px", maxWidth: "none"}}>
+            <Container sx={{margin: "0", padding: "5px"}}>
                 <Grid2 container fullWidth order={{xs: 2, sm: 1}} spacing={2}>
-                    <Grid2 item xs={12} key={"searchBar"}>
+                    <Grid2 item xs={12} md={6} key={"searchBar"}>
                         <Grid2 container spacing={2} columns={12} sx={{padding:"10px"}}>
-                            <Grid2 item xs={12}>
+                            <Grid2 item xs={12} md={5}>
                                     <TextField classes={"TextSmallNormal"}
                                                label="Buscar por población, código postal..."
                                                variant="outlined" sx={{minWidth: {xs: "80%", md: "35%"}}}
@@ -227,12 +229,87 @@ export default function PropertyListPage({params, searchParams}) {
                                                onKeyPress={handleKeyPress}
                                     />
                             </Grid2>
+                            <Hidden mdUp>
+                                <Grid2 item xs={12} md={6} key={"search"}>
+
+                                {/* Sección para dispositivos móviles (oculto en pantallas medianas y mayores) */}
+                                <Accordion>
+                                    <AccordionSummary>Otros filtros</AccordionSummary>
+                                    <AccordionDetails>
+                                        <Grid2 item xs={12} md={4}>
+                                            <NeighborhoodFilter areas={areas} setSelectedZones={(zones)=> {
+                                                setSearchFilters({...searchFilters, "location.areas": zones})
+                                            }}/>
+                                        </Grid2>
+                                        <Grid2 item xs={12} md={3}>
+                                <span className={"TextSmallNormal"}>
+                                    Rango de precios&nbsp;
+                                </span>
+                                            <span className={"TextSmallNormal"}>
+                                    ({priceRange[0]} - {priceRange[1]})
+                                </span>
+                                            <Slider
+                                                value={priceRange}
+                                                onChange={(event, newValue) => {setPriceRange(newValue);setSearchFilters({...searchFilters, "minprice.pricePerMonth": newValue[0], "maxprice.pricePerMonth": newValue[1]})}}
+                                                valueLabelDisplay="auto"
+                                                valueLabelFormat={formatPriceLabel}
+                                                min={500}
+                                                step={100}
+                                                max={10000}
+                                                aria-labelledby="price-range-slider"
+                                            />
+                                        </Grid2>
+                                        <Grid2 item xs={12} md={3}>
+                                <span className={"TextSmallNormal"}>
+                                    Metros cuadrados&nbsp;
+                                </span>
+                                            <span className={"TextSmallNormal"}>
+                                    ({areaRange[0]} - {areaRange[1]})
+                                </span>
+                                            <Slider
+                                                value={areaRange}
+                                                onChange={(event, newValue) => {setAreaRange(newValue);setSearchFilters({...searchFilters, minSurface: newValue[0], maxSurface: newValue[1]})}}
+                                                valueLabelDisplay="auto"
+                                                min={30}
+                                                step={10}
+                                                max={300}
+                                                aria-labelledby="area-range-slider"
+                                            />
+                                        </Grid2>
+
+                                        <Grid2 item xs={12} md={5}>
+
+                                            <FormControl>
+                                                <FormLabel id="demo-row-radio-buttons-group-label">  <span
+                                                    className={"TextSmallNormal"}>
+                                    Número de personas
+                                </span></FormLabel>
+                                                <RadioGroup
+                                                    row onChange={(event, newValue) => {setMinPersons(newValue);setSearchFilters({...searchFilters, minCapacity: newValue})}}
+                                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                                    name="row-radio-buttons-group"
+                                                >
+                                                    <FormControlLabel value="1" control={<Radio/>} label="+1"/>
+                                                    <FormControlLabel value="2" control={<Radio/>} label="+2"/>
+                                                    <FormControlLabel value="3" control={<Radio/>} label="+3"/>
+                                                    <FormControlLabel value="4" control={<Radio/>} label="+4"/>
+                                                    <FormControlLabel value="5" control={<Radio/>} label="+5"/>
+
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid2>
+                                    </AccordionDetails>
+                                </Accordion>
+                                </Grid2>
+                            </Hidden>
+
+                            <Hidden smDown>
                             <Grid2 item xs={12} md={4}>
                                 <NeighborhoodFilter areas={areas} setSelectedZones={(zones)=> {
                                     setSearchFilters({...searchFilters, "location.areas": zones})
                                 }}/>
                             </Grid2>
-                            <Grid2 item xs={12} md={4}>
+                            <Grid2 item xs={12} md={3}>
                                 <span className={"TextSmallNormal"}>
                                     Rango de precios&nbsp;
                                 </span>
@@ -250,7 +327,7 @@ export default function PropertyListPage({params, searchParams}) {
                                     aria-labelledby="price-range-slider"
                                 />
                             </Grid2>
-                            <Grid2 item xs={12} md={4}>
+                            <Grid2 item xs={12} md={3}>
                                 <span className={"TextSmallNormal"}>
                                     Metros cuadrados&nbsp;
                                 </span>
@@ -268,7 +345,7 @@ export default function PropertyListPage({params, searchParams}) {
                                 />
                             </Grid2>
 
-                            <Grid2 item xs={12} md={4}>
+                            <Grid2 item xs={12} md={5}>
 
                                 <FormControl>
                                     <FormLabel id="demo-row-radio-buttons-group-label">  <span
@@ -289,7 +366,8 @@ export default function PropertyListPage({params, searchParams}) {
                                     </RadioGroup>
                                 </FormControl>
                             </Grid2>
-                            <Grid2 item xs={12} md={12} display={"flex"} alignItems={"center"}>
+                            </Hidden>
+                            <Grid2 item xs={12} md={3} display={"flex"} alignItems={"center"}>
                                 <IconButton onClick={handleSearch}>
 
                                     <SearchIcon/>
