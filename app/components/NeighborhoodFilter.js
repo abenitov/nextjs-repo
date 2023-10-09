@@ -38,7 +38,7 @@ const NeighborhoodFilter = ({areas,setSelectedZones}) => {
     };
 
     return (
-        <FormControl style={{minWidth: "250px"}}>
+        <FormControl style={{minWidth: "250px", width:"100%"}}>
             <InputLabel>Áreas y barrios</InputLabel>
             <Select
                 multiple fullWidth={true}

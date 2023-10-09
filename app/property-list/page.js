@@ -24,7 +24,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import NeighborhoodFilter from "@/app/components/NeighborhoodFilter";
-
+import {DateField, esES, LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import 'moment/locale/es'
 const areas =
     [
         {
@@ -109,6 +111,7 @@ export default function PropertyListPage({params, searchParams}) {
     const [areaRange, setAreaRange] = React.useState([0, 100]);
     const [minPersons, setMinPersons] = React.useState(1);
     const [searchFilters, setSearchFilters] = React.useState({});
+    const [checkinDate,setCheckInDate] = React.useState()
 
 
     const formatPriceLabel = (value) => `$${value}`;
@@ -167,7 +170,9 @@ export default function PropertyListPage({params, searchParams}) {
         Object.keys(obj).forEach(function (key) {
             if (key === "search") {
                 setSearchText(obj[key])
-            } else {
+            } else if( key==="checkIn"){
+                filters["checkIn"] = obj[key]
+            }else {
                 if (key.startsWith("min")) {
                     //given the key convert to lowercase only the first letter
                     let ke = key.substring(3)
@@ -218,9 +223,9 @@ export default function PropertyListPage({params, searchParams}) {
         <ThemeProvider theme={theme}>
             <Container sx={{margin: "0", padding: "5px"}}>
                 <Grid2 container fullWidth order={{xs: 2, sm: 1}} spacing={2}>
-                    <Grid2 item xs={12} md={6} key={"searchBar"}>
+                    <Grid2 item xs={12} md={12} key={"searchBar"}>
                         <Grid2 container spacing={2} columns={12} sx={{padding:"10px"}}>
-                            <Grid2 item xs={12} md={5}>
+                            <Grid2 item xs={12} md={4}>
                                     <TextField classes={"TextSmallNormal"}
                                                label="Buscar por población, código postal..."
                                                variant="outlined" sx={{minWidth: {xs: "80%", md: "35%"}}}
@@ -240,6 +245,16 @@ export default function PropertyListPage({params, searchParams}) {
                                             <NeighborhoodFilter areas={areas} setSelectedZones={(zones)=> {
                                                 setSearchFilters({...searchFilters, "location.areas": zones})
                                             }}/>
+                                        </Grid2>
+                                        <Grid2 item xs={12} md={4}>
+                                            <LocalizationProvider localeText={esES.components.MuiLocalizationProvider.defaultProps.localeText}
+                                                                  dateAdapter={AdapterMoment} adapterLocale={"es-ES"}>
+                                                <DateField
+                                                    label="Fecha de entrada"
+                                                    value={checkinDate}
+                                                    onChange={(newValue) => {setCheckInDate(newValue); setSearchFilters({...searchFilters, "checkIn": newValue._d.getTime()/1000})}}
+                                                />
+                                            </LocalizationProvider>
                                         </Grid2>
                                         <Grid2 item xs={12} md={3}>
                                 <span className={"TextSmallNormal"}>
@@ -309,6 +324,16 @@ export default function PropertyListPage({params, searchParams}) {
                                     setSearchFilters({...searchFilters, "location.areas": zones})
                                 }}/>
                             </Grid2>
+                                <Grid2 item xs={12} md={4}>
+                                    <LocalizationProvider localeText={esES.components.MuiLocalizationProvider.defaultProps.localeText}
+                                    dateAdapter={AdapterMoment} adapterLocale={"es-ES"}>
+                                    <DateField
+                                        label="Fecha de entrada"
+                                        value={checkinDate}
+                                        onChange={(newValue) => {setCheckInDate(newValue); setSearchFilters({...searchFilters, "checkIn": newValue._d.getTime()/1000})}}
+                                    />
+                                    </LocalizationProvider>
+                                </Grid2>
                             <Grid2 item xs={12} md={3}>
                                 <span className={"TextSmallNormal"}>
                                     Rango de precios&nbsp;
@@ -327,7 +352,7 @@ export default function PropertyListPage({params, searchParams}) {
                                     aria-labelledby="price-range-slider"
                                 />
                             </Grid2>
-                            <Grid2 item xs={12} md={3}>
+                            <Grid2 item xs={12} md={3} sx={{marginLeft:"15px"}}>
                                 <span className={"TextSmallNormal"}>
                                     Metros cuadrados&nbsp;
                                 </span>

@@ -11,7 +11,21 @@ import singlebed from '../../public/icons/icons8-cama-individual-48.png';
 import ocupacion from '../../public/icons/icons8-persona-en-casa-48.png';
 import baños from '../../public/icons/icons8-bañera-48.png';
 import Grid2 from "@mui/material/Unstable_Grid2";
+import {Chip} from "@mui/material";
 
+const getNextAvailabityDate = (timestamp) => {
+
+
+    //Get date in text with moment considering navigator language
+    const date = new Date(timestamp * 1000);
+    const day = date.toLocaleString(navigator.language, {weekday: 'long'});
+    const month = date.toLocaleString(navigator.language, {month: 'long'});
+    const dayNumber = date.toLocaleString(navigator.language, {day: 'numeric'});
+    const year = date.toLocaleString(navigator.language, {year: 'numeric'});
+    return  dayNumber + " de " + month + " de " + year
+
+
+}
 function PropertyList({properties, configAreas}) {
 
     //move neighborhoods to configAreas
@@ -57,7 +71,9 @@ function PropertyList({properties, configAreas}) {
                                     <Grid item xs={8}>
                                         <span className={"TextRegularNormal"}> {property.location.address}</span><br/>
                                         <span className={"TextSmallLight"}>
-                                            {property.location.areas.map((area) => { return areas.filter((area2) => area2.id === area)[0].name}).join(", ")}
+                                            {property.location.areas.map((area) => {
+                                                return areas.filter((area2) => area2.id === area)[0].name
+                                            }).join(", ")}
                                         </span>
 
                                     </Grid>
@@ -74,45 +90,57 @@ function PropertyList({properties, configAreas}) {
                                         </div>
                                     </Grid>
                                 </Grid>
+                                <Grid item xs={12} display={"flex"} justifyContent={"right"} sx={{marginRight: "15px"}}>
+                                    {
+                                        property.nextAvailable === 0 ? <Chip label="DIsponible ahora" color="success"/> :
+                                            <Chip label={"Disponible " + getNextAvailabityDate( property.nextAvailable) } color="primary"/>
+                                    }
+
+                                </Grid>
 
                                 {/* Quinto Grid Item con la lista de iconos */}
-                                <Grid container spacing={2} sx={{marginTop:"15px", paddingBottom:"15px",margiBottom:"0px", background:"#f3f7fc"}}>
-                                    <Grid item >
+                                <Grid container spacing={2} sx={{
+                                    marginTop: "15px",
+                                    paddingBottom: "15px",
+                                    margiBottom: "0px",
+                                    background: "#f3f7fc"
+                                }}>
+                                    <Grid item>
                                         {/* Icono de superficie */}
                                         {/* Reemplaza el siguiente icono con el icono real de superficie */}
                                         <Grid container display={"flex"} alignItems={"center"}>
-                                            <Grid item  display={"flex"} alignItems={"center"}>
+                                            <Grid item display={"flex"} alignItems={"center"}>
                                                 <div><Image src={superficie} alt={"squareMeters"} width={20}/></div>
                                             </Grid>
-                                            <Grid item  display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
+                                            <Grid item display={"flex"} alignItems={"center"} sx={{marginLeft: "5px"}}>
                                                   <span className={"TextTinySemibold"}>
                                                     {property.surface} m²
                                                 </span>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item >
+                                    <Grid item>
                                         {/* Icono de número de habitaciones */}
                                         {/* Reemplaza el siguiente icono con el icono real de número de habitaciones */}
                                         <Grid container display={"flex"} alignItems={"center"}>
-                                            <Grid item  display={"flex"} alignItems={"center"}>
+                                            <Grid item display={"flex"} alignItems={"center"}>
                                                 <div><Image src={singlebed} alt={"squareMeters"} width={20}/></div>
                                             </Grid>
-                                            <Grid item  display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
+                                            <Grid item display={"flex"} alignItems={"center"} sx={{marginLeft: "5px"}}>
                                                   <span className={"TextTinySemibold"}>
                                                     {property.sleeping.singleBed != 1 ? property.sleeping.singleBed + " individuales" : property.sleeping.singleBed + " individual"}
                                                 </span>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item >
+                                    <Grid item>
                                         {/* Icono de número de habitaciones */}
                                         {/* Reemplaza el siguiente icono con el icono real de número de habitaciones */}
                                         <Grid container display={"flex"} alignItems={"center"}>
-                                            <Grid item  display={"flex"} alignItems={"center"}>
+                                            <Grid item display={"flex"} alignItems={"center"}>
                                                 <div><Image src={doublebed} alt={"squareMeters"} width={20}/></div>
                                             </Grid>
-                                            <Grid item  display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
+                                            <Grid item display={"flex"} alignItems={"center"} sx={{marginLeft: "5px"}}>
                                                   <span className={"TextTinySemibold"}>
                                                     {property.sleeping.doubleBed != 1 ? property.sleeping.doubleBed + " dobles" : property.sleeping.doubleBed + " doble"}
                                                 </span>
@@ -123,10 +151,10 @@ function PropertyList({properties, configAreas}) {
                                         {/* Icono de ocupación máxima */}
                                         {/* Reemplaza el siguiente icono con el icono real de ocupación máxima */}
                                         <Grid container display={"flex"} alignItems={"center"}>
-                                            <Grid item  display={"flex"} alignItems={"center"}>
+                                            <Grid item display={"flex"} alignItems={"center"}>
                                                 <div><Image src={baños} alt={"squareMeters"} width={20}/></div>
                                             </Grid>
-                                            <Grid item  display={"flex"} alignItems={"center"} sx={{marginLeft:"5px"}}>
+                                            <Grid item display={"flex"} alignItems={"center"} sx={{marginLeft: "5px"}}>
                                                   <span className={"TextTinySemibold"}>
                                                     {property.bathrooms != 1 ? property.bathrooms + " baños" : property.bathrooms + " baño"}
                                                 </span>
